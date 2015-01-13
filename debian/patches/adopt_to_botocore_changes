@@ -1,0 +1,74 @@
+Description: Adopt to botocore changes.
+ botocore is changed to remove duplicated code. So import path have to be changed.
+ .
+ awscli (1.2.9-1) unstable; urgency=low
+ .
+   * Initial release (Closes: #733211)
+Author: TANIGUCHI Takaki <takaki@debian.org>
+Bug-Debian: http://bugs.debian.org/733211
+
+---
+The information above should follow the Patch Tagging Guidelines, please
+checkout http://dep.debian.net/deps/dep3/ to learn about the format. Here
+are templates for supplementary fields that you might want to add:
+
+Origin: <vendor|upstream|other>, <url of original patch>
+Bug: <url in upstream bugtracker>
+Bug-Debian: http://bugs.debian.org/<bugnumber>
+Bug-Ubuntu: https://launchpad.net/bugs/<bugnumber>
+Forwarded: <no|not-needed|url proving that it has been forwarded>
+Reviewed-By: <name and email of someone who approved the patch>
+Last-Update: <YYYY-MM-DD>
+
+Index: awscli-1.7.0/awscli/customizations/cloudtrail.py
+===================================================================
+--- awscli-1.7.0.orig/awscli/customizations/cloudtrail.py	2015-01-13 22:57:08.672414671 +0900
++++ awscli-1.7.0/awscli/customizations/cloudtrail.py	2015-01-13 22:57:08.668414730 +0900
+@@ -16,7 +16,7 @@
+ 
+ from awscli.customizations.commands import BasicCommand
+ from awscli.customizations.service import Service
+-from botocore.vendored import requests
++import requests
+ 
+ 
+ LOG = logging.getLogger(__name__)
+Index: awscli-1.7.0/awscli/customizations/s3/tasks.py
+===================================================================
+--- awscli-1.7.0.orig/awscli/customizations/s3/tasks.py	2015-01-13 22:57:08.672414671 +0900
++++ awscli-1.7.0/awscli/customizations/s3/tasks.py	2015-01-13 22:57:08.668414730 +0900
+@@ -5,7 +5,7 @@
+ import socket
+ import threading
+ 
+-from botocore.vendored import requests
++import requests
+ from botocore.exceptions import IncompleteReadError
+ 
+ from awscli.customizations.s3.utils import find_bucket_key, MD5Error, \
+Index: awscli-1.7.0/awscli/paramfile.py
+===================================================================
+--- awscli-1.7.0.orig/awscli/paramfile.py	2015-01-13 22:57:08.672414671 +0900
++++ awscli-1.7.0/awscli/paramfile.py	2015-01-13 22:58:11.979562183 +0900
+@@ -15,7 +15,7 @@
+ import logging
+ import os
+ 
+-from botocore.vendored import requests
++import requests
+ from awscli.compat import six
+ 
+ from awscli.compat import compat_open
+Index: awscli-1.7.0/awscli/testutils.py
+===================================================================
+--- awscli-1.7.0.orig/awscli/testutils.py	2015-01-13 22:57:08.672414671 +0900
++++ awscli-1.7.0/awscli/testutils.py	2015-01-13 22:57:08.668414730 +0900
+@@ -46,7 +46,7 @@
+ from botocore.hooks import HierarchicalEmitter
+ from botocore.session import Session
+ import botocore.loaders
+-from botocore.vendored import requests
++import requests
+ 
+ import awscli.clidriver
+ from awscli.plugin import load_plugins
